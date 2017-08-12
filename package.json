@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build",
-    "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base /src --inline --hot",
+    "build": "webpack -d && cp src/index.html dist/index.html && npm run server",
     "build:prod": "webpack -p && cp src/index.html dist/index.html",
+    "server" : "webpack-dev-server --content-base src/ --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
