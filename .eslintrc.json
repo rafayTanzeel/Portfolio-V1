@@ -1,39 +1,46 @@
 {
   "root": true,
   "env": {
-      "browser": true,
-      "node": true,
-      "commonjs": true,
-      "es6": true
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "es6": true
   },
   "extends": [
     // "eslint:recommended",
-    "google"
+    "google",
+    "plugin:react/recommended"
   ],
   "parserOptions": {
-      "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "rules": {
-      "linebreak-style": [
-          "error",
-          "unix"
-      ],
-      "quotes": [
-          "warn",
-          "single"
-      ],
-      "semi": [
-          "error",
-          "always"
-      ],
-      "no-unused-vars": [
-        "warn"
-      ],
-      "prefer-arrow-callback": [
-        "warn"
-      ],
-      "no-invalid-this": [
-        "warn"
-      ]
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-unused-vars": [
+      "warn"
+    ],
+    "prefer-arrow-callback": [
+      "warn"
+    ],
+    "no-invalid-this": [
+      "warn"
+    ],
+    "require-jsdoc": [
+      "warn"
+    ]
   }
 }

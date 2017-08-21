@@ -15,19 +15,19 @@ module.exports = {
     publicPath: '/',
   },
   module: {
-    loaders: [{
-      test: /\.js$/, // include .js files
-      enforce: 'pre', // preload the jshint loader
-      exclude: /node_modules/,
-      use: [
-        {
-          loader: 'jshint-loader',
-        },
-      ],
-    }],
+    // loaders: [{
+    //   test: /\.(js|jsx)$/, // include .js files
+    //   enforce: 'pre', // preload the jshint loader
+    //   exclude: /node_modules/,
+    //   use: [
+    //     {
+    //       loader: 'jshint-loader',
+    //     },
+    //   ],
+    // }],
     loaders: [{
         test: /\.(js|jsx)$/,
-        include: path.resolve(SRC_DIR, 'javascripts'),
+        include: path.resolve(SRC_DIR),
         loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-2'],
@@ -43,11 +43,17 @@ module.exports = {
           }
         ),
     }],
+    loaders: [{
+      test: /\.pug$/,
+      include: path.resolve(SRC_DIR),
+      loader: ['html-loader', 'pug-html-loader'],
+    }],
   },
   plugins: [
     new HtmlWebpackPlugin({
       // minify: {collapseWhitespace : true},
       template: './src/index.pug',
+      filetype: 'pug',
     }),
     new ExtractTextPlugin('[name].css'),
   ],
