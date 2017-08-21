@@ -8,8 +8,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     index: path.join(SRC_DIR, 'javascripts', 'index.js'),
-    // index: path.join(SRC_DIR, 'styles', 'index.scss'),
-    // index: path.join(SRC_DIR, 'index.pug'),
   },
   output: {
     filename: '[name].bundle.js',
@@ -21,14 +19,16 @@ module.exports = {
       {
         test: /\.scss$/,
         include: path.resolve(SRC_DIR, 'styles'),
+        exclude: /(node_modules|bower_components)/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'sass-loader']
+          use: ['css-loader', 'postcss-loader', 'sass-loader'],
         }),
       },
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
+        include: path.resolve(SRC_DIR, 'javascripts'),
         exclude: /(node_modules|bower_components)/,
         query: {
           presets: ['react', 'es2015', 'stage-2'],
@@ -36,16 +36,16 @@ module.exports = {
       },
       {
         test: /\.pug$/,
-        include: path.resolve(SRC_DIR),
+        include: path.resolve(SRC_DIR, 'views'),
+        exclude: /(node_modules|bower_components)/,
         loader: ['html-loader', 'pug-html-loader'],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
+      template: './src/views/index.pug',
       // minify: {collapseWhitespace : true},
-      // template: './src/index.pug',
-      // filetype: 'pug',
     }),
     new ExtractTextPlugin('[name].css'),
   ],
