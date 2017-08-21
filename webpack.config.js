@@ -27,7 +27,12 @@ module.exports = {
     loaders : [{
         test: /\.scss$/,
         include : path.resolve(SRC_DIR, 'styles'),
-        use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+        use: ExtractTextPlugin.extract(
+          {
+            fallback: 'style-loader',
+            use: [ 'css-loader', 'postcss-loader', 'sass-loader' ]
+          }
+        )
     }],
   },
   plugins: [
@@ -35,6 +40,7 @@ module.exports = {
       title: 'Portfolio',
       // minify: {collapseWhitespace : true},
       template: './src/index.pug'
-    })
+    }),
+    new ExtractTextPlugin('[name].css')
   ]
 };
