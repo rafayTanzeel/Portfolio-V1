@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import '../styles/index.scss';
+import '../index.pug';
+
 
 class App extends React.Component {
   render() {
@@ -13,5 +15,5 @@ class App extends React.Component {
   }
 }
 
-const mountNode = window.document.getElementById('app');
-ReactDOM.render(<App/>, mountNode);
+const mountNode = document.getElementById('app');
+ReactDOM.render(<App/>, document.getElementById('app'));
