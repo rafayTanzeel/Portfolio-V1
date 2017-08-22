@@ -6,15 +6,16 @@ import '../views/index.pug';
 import './render.js';
 
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Hello Rafay</h1>
-      </div>
-    );
-  }
-}
+// class App extends React.Component {
+//   render() {
+//     return (
+//       <div className="bg">
+//         import './vert_shader.pug';
+//         import './frag_shader.pug';
+//       </div>
+//     );
+//   }
+// }
 
-const mountNode = document.getElementById('root');
-ReactDOM.render(<App />, mountNode);
+// const mountNode = document.getElementById('root');
+// ReactDOM.render(<App />, mountNode);

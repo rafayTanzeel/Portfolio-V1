@@ -11,7 +11,8 @@ window.onload = function() {
     let renderer = new WebGLRenderer();
     renderer.setClearColor(0xc4c4c4);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+    let container = document.getElementById('canvasSea');
+    container.appendChild(renderer.domElement);
     let clock = new Clock();
 
     let tuniform = {
@@ -65,7 +66,11 @@ window.onload = function() {
     // draw animation
     function render(time) {
         tuniform.iGlobalTime.value += clock.getDelta();
-        requestAnimationFrame(render);
+        // requestAnimationFrame(render);
+        setTimeout( function() {
+          requestAnimationFrame( render );
+        }, 1000 / 24 );
+
         renderer.render(scene, camera);
     }
     render();
