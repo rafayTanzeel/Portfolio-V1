@@ -7,5 +7,48 @@ script.
   $(document).ready(function() {
     $('#fullpage').fullpage({
       sectionsColor: ['#f2aaa2', '#4BBFC3', '#ff22cc'],
+      onLeave: function(index, nextIndex, direction){
+        var leavingSection = $(this);
+        //after leaving section 1
+        //- if(index == 1 && direction =='down'){
+        //-   alert("Leaving to section 1!");
+        //- }
+      },
+      afterLoad: function(anchorLink, index){
+        if(index > 1 && $('#RenderAnim').length != 0){
+          removeHead();
+          $('#vertex-shader').remove();
+          $('#fragment-shader').remove();
+          console.log('Removed Section');
+        }
+      }
     });
+
+
+    function removeHead(){
+          //- $('#fullpage').attr().remove('<div class="section">New section</div>');
+          $('#RenderAnim').remove();
+
+          //remembering the active section / slide
+          var activeSectionIndex = $('.fp-section.active').index();
+          var activeSlideIndex = $('.fp-section.active').find('.slide.active').index();
+
+          $.fn.fullpage.destroy('all');
+
+          //setting the active section as before
+          $('.section').eq(activeSectionIndex).addClass('active');
+
+          //were we in a slide? Adding the active state again
+          if(activeSlideIndex > -1){
+              $('.section.active').find('.slide').eq(activeSlideIndex).addClass('active');
+          }
+
+          $('#fullpage').fullpage({
+            sectionsColor: ['#4BBFC3', '#ff22cc'],
+          });
+    }
   });
+
+
+
+
