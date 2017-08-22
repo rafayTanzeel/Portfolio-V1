@@ -117,6 +117,12 @@ $(renderer.view).on('mousemove', (e) => {
 
 let lastTime = null;
 let update = (timestamp) => {
+
+  if ($('#RenderAnim').length===0) {
+    // alert('Stoped');
+    return;
+  }
+
 	setTimeout( function() {
 		requestAnimationFrame(update);
 	}, 1000 / 24 );

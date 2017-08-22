@@ -196,6 +196,7 @@ script.
       afterLoad: function(anchorLink, index){
         if(index > 1 && $('#RenderAnim').length != 0){
           removeHead();
+          $('#typer').remove();
           $('#vertex-shader').remove();
           $('#fragment-shader').remove();
           console.log('Removed Section');
@@ -207,6 +208,7 @@ script.
     function removeHead(){
           //- $('#fullpage').attr().remove('<div class="section">New section</div>');
           $('#RenderAnim').remove();
+
 
           //remembering the active section / slide
           var activeSectionIndex = $('.fp-section.active').index();
