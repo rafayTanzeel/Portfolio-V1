@@ -5,7 +5,7 @@ import '../styles/index.scss';
 import '../styles/scrollArrow.scss';
 
 import '../views/index.pug';
-import './render.js';
+// import './render.js';
 
 import Typist from 'react-typist';
 // import './fullpage';

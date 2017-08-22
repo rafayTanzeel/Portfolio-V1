@@ -1,77 +1,139 @@
-import {Scene, PerspectiveCamera, WebGLRenderer, Clock, Vector2, ShaderMaterial, Mesh, PlaneBufferGeometry} from './three.min.js';
+// console.clear();
 
-
-window.onload = function() {
-    let scene = new Scene();
-    let fov = 75;
-    let aspect = window.innerWidth / window.innerHeight;
-    let camera = new PerspectiveCamera(fov, aspect, 0.1, 1000);
-    camera.position.z = 100;
-    camera.lookAt(scene.position);
-    let renderer = new WebGLRenderer();
-    renderer.setClearColor(0xc4c4c4);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    let container = document.getElementById('canvasSea');
-    container.appendChild(renderer.domElement);
-    let clock = new Clock();
-
-    let tuniform = {
-        iGlobalTime: {
-            type: 'f',
-            value: 0.1,
-        },
-        iResolution: {
-            type: 'v2',
-            value: new Vector2(),
-        },
-        iMouse: {
-            type: 'v4',
-            value: new Vector2(),
-        },
-    };
-
-    // Mouse position in - 1 to 1
-    renderer.domElement.addEventListener('mousedown', (e) => {
-        let canvas = renderer.domElement;
-        let rect = canvas.getBoundingClientRect();
-        tuniform.iMouse.value.x = (e.clientX - rect.left) / window.innerWidth * 2 - 1;
-        tuniform.iMouse.value.y = (e.clientY - rect.top) / window.innerHeight * -2 + 1;
-    });
-    renderer.domElement.addEventListener('mouseup', (e) => {
-        let canvas = renderer.domElement;
-        let rect = canvas.getBoundingClientRect();
-        tuniform.iMouse.value.z = (e.clientX - rect.left) / window.innerWidth * 2 - 1;
-        tuniform.iMouse.value.w = (e.clientY - rect.top) / window.innerHeight * -2 + 1;
-    });
-    // resize canvas function
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    tuniform.iResolution.value.x = window.innerWidth;
-    tuniform.iResolution.value.y = window.innerHeight;
-    // Create Plane
-    let material = new ShaderMaterial({
-        uniforms: tuniform,
-        vertexShader: document.getElementById('vertex-shader').textContent,
-        fragmentShader: document.getElementById('fragment-shader').textContent,
-    });
-    let mesh = new Mesh(
-        new PlaneBufferGeometry(window.innerWidth, window.innerHeight, 40), material
-    );
-    scene.add(mesh);
-
-    // draw animation
-    function render(time) {
-        tuniform.iGlobalTime.value += clock.getDelta();
-        // requestAnimationFrame(render);
-        setTimeout( function() {
-          requestAnimationFrame( render );
-        }, 1000 / 24 );
-
-        renderer.render(scene, camera);
-    }
-    render();
+let Shader = class extends PIXI.Filter {
+	constructor(filterText) {
+		super('', filterText, uniforms);
+	}
 };
+
+
+let width = window.innerWidth;
+let height = window.innerHeight;
+let mousedown = false;
+let shaders = [ 'SeaScape', 'IndustrialComplex', 'Primitives', 'Flame', 'AwesomeStar', 'VoxelTowers', 'TrainRide', 'Matroshka', 'MarioWorld' ];
+let data = {
+	Shader: shaders[0],
+	shaders: [],
+	index: 0
+};
+let uniforms = {
+	iResolution: {
+		type: 'v3',
+		value: [width, height, 0]
+	},
+	iGlobalTime: {
+		type: 'f',
+		value: 0
+	},
+	iTimeDelta: {
+		type: 'f',
+		value: 0
+	},
+	iFrame: {
+		type: 'i',
+		value: 0
+	},
+	iMouse: {
+		type: 'v4',
+		value: [0, 0, 0, 0]
+	}
+};
+for (let i = 0; i < shaders.length; i++) {
+	// Get filter text
+	let filterText = $('#' + shaders[i].toLowerCase()).text();
+
+	// Search for global assignments that should be #define
+	/*for (let uniform in uniforms) {
+		if (uniforms.hasOwnProperty(uniform)) {
+			let lines = filterText.split('\n');
+
+			for (let i = 0; i < lines.length; i++) {
+				// Check if line includes both = and a uniform name
+				if (lines[i].includes('=') && lines[i].includes(uniform)) {
+					// Get variable name
+					let name = new RegExp(' (.*(?==))', 'g').exec(lines[i])[1];
+					filterText = filterText.replace(lines[i], '#define ' + name + ' ' + uniform);
+				}
+			}
+		}
+	}*/
+
+	// Update mainImage to main
+	filterText = filterText.replace('mainImage', 'main');
+	filterText = filterText.replace('out vec4 fragColor, in vec2 fragCoord', '');
+	filterText = filterText.replace('out vec4 fragColor,in vec2 fragCoord', '');
+
+	// Add uniforms and definitions
+	filterText = 'uniform vec2 iResolution;\nuniform float iGlobalTime;\nuniform float iTimeDelta;\nuniform float iFrame;\nuniform vec2 iMouse;\nuniform sampler2D iChannel0;\nuniform sampler2D iChannel1;\nuniform sampler2D iChannel2;\n\n#define fragColor gl_FragColor\n#define fragCoord gl_FragCoord\n' + filterText;
+
+	// Make sure that there is a main() function
+	if (!filterText.includes('void main')) {
+		filterText = 'void main() {}';
+	}
+
+	data.shaders[i] = new PIXI.Filter('', filterText, uniforms);
+}
+
+
+let renderer = PIXI.autoDetectRenderer(width, height, {
+	view: $('canvas')[0]
+});
+let stage = new PIXI.Container();
+let sprite = new PIXI.Sprite();
+
+
+
+
+sprite.width = width;
+sprite.height = height;
+sprite.filters = [ data.shaders[0] ];
+stage.addChild(sprite);
+
+$(window).on('resize', (e) => {
+	// Get new width and height
+	width = window.innerWidth;
+	height = window.innerHeight;
+
+	// Update uniform
+	data.shaders[data.index].uniforms.iResolution[0] = width;
+	data.shaders[data.index].uniforms.iResolution[1] = height;
+
+	// Full screen sprite
+	sprite.width = width;
+	sprite.height = height;
+
+	// Resize renderer
+	renderer.resize(width, height);
+});
+
+$(renderer.view).on('mousedown', (e) => mousedown = true);
+$(window).on('mouseup', (e) => mousedown = false);
+$(renderer.view).on('mousemove', (e) => {
+	if (mousedown) {
+		data.shaders[data.index].uniforms.iMouse[0] = e.clientX;
+		data.shaders[data.index].uniforms.iMouse[1] = e.clientY;
+	}
+});
+
+let lastTime = null;
+let update = (timestamp) => {
+	setTimeout( function() {
+		requestAnimationFrame(update);
+	}, 1000 / 24 );
+
+	if (lastTime === null) {
+		lastTime = timestamp;
+	}
+
+	let delta = (timestamp - lastTime) / 1000;
+	let date = new Date();
+	lastTime = timestamp;
+
+	data.shaders[data.index].uniforms.iGlobalTime += delta;
+	data.shaders[data.index].uniforms.iTimeDelta = delta;
+	data.shaders[data.index].uniforms.iFrame++;
+
+	renderer.render(stage);
+};
+
+requestAnimationFrame(update);

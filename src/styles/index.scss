@@ -5,13 +5,10 @@ canvas {
   min-height: 100%;
 }
 
-.header{
-  position: fixed;
-  width: 100%;
-  margin-top: 25%;
-}
+
 
 #typer{
+  z-index: 10;
   font-size: 2rem;
   color: #E0E0E0;
 }
@@ -25,16 +22,30 @@ canvas {
   bottom:0px;
 }
 
-#header{
+.header{
   position:fixed;
-  height: 50px;
+  top: 40%;
   display:block;
   width: 100%;
-  background: #333;
-  z-index:9;
-  text-align:center;
-  color: #f2f2f2;
-  padding: 20px 0 0 0;
-  bottom:0px;
-  top:0px;
+  z-index:10;
 }
+
+// .header{
+//   position: fixed;
+//   width: 100%;
+//   margin-top: 25%;
+// }
+
+// #header{
+//   position:fixed;
+//   height: 50px;
+//   display:block;
+//   width: 100%;
+//   background: #333;
+//   z-index:9;
+//   text-align:center;
+//   color: #f2f2f2;
+//   padding: 20px 0 0 0;
+//   bottom:0px;
+//   top:0px;
+// }
