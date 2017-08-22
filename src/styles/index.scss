@@ -2,15 +2,12 @@ canvas {
 	overflow: hidden;
 	margin: 0;
   height: 100%;
-  z-index: -10000;
-  position: fixed;
+  // z-index: -10000;
 }
 
-.header {
-  margin-top: 20%;
-}
-
-
-.typer{
+.header{
   color: #E0E0E0;
+  position: fixed;
+  width: 100%;
+  margin-top: 25%;
 }

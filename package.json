@@ -8,7 +8,7 @@
     "start": "npm run build",
     "build": "webpack -d && npm run server",
     "build:prod": "webpack -p",
-    "server": "webpack-dev-server --content-base src/ --inline --hot",
+    "server": "webpack-dev-server --content-base src/ --inline --hot --open",
     "linter": "esw --ignore-path .gitignore --fix ./",
     "security-check": "nsp check",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/rafayTanzeel/Portfolio#readme",
   "dependencies": {
+    "fullpage.js": "^2.9.4",
+    "jquery": "^3.2.1",
     "pug": "^2.0.0-rc.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
