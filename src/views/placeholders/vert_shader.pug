@@ -186,19 +186,9 @@ script.
   $(document).ready(function() {
     $('#fullpage').fullpage({
       sectionsColor: ['#f2aaa2', '#4BBFC3', '#ff22cc'],
-      onLeave: function(index, nextIndex, direction){
-        var leavingSection = $(this);
-        //after leaving section 1
-        //- if(index == 1 && direction =='down'){
-        //-   alert("Leaving to section 1!");
-        //- }
-      },
       afterLoad: function(anchorLink, index){
         if(index > 1 && $('#RenderAnim').length != 0){
           removeHead();
-          $('#typer').remove();
-          $('#vertex-shader').remove();
-          $('#fragment-shader').remove();
           console.log('Removed Section');
         }
       }
@@ -208,6 +198,9 @@ script.
     function removeHead(){
           //- $('#fullpage').attr().remove('<div class="section">New section</div>');
           $('#RenderAnim').remove();
+          $('#typer').remove();
+          $('#vertex-shader').remove();
+          $('#fragment-shader').remove();
 
 
           //remembering the active section / slide
