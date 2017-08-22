@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import '../styles/index.scss';
 import '../views/index.pug';
+import './render.js';
 
 
 class App extends React.Component {

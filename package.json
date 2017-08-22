@@ -4,7 +4,7 @@
   "description": "Rafay's Portfolio",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm-run-all --parallel security-check linter",
+    "prestart": "npm-run-all --parallel security-check",
     "start": "npm run build",
     "build": "webpack -d && npm run server",
     "build:prod": "webpack -p",
