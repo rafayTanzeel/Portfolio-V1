@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import '../styles/index.scss';
+import '../styles/scrollArrow.scss';
+
 import '../views/index.pug';
 import './render.js';
 

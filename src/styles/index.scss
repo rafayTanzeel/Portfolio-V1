@@ -2,12 +2,39 @@ canvas {
 	overflow: hidden;
 	margin: 0;
   height: 100%;
-  // z-index: -10000;
+  min-height: 100%;
 }
 
 .header{
-  color: #E0E0E0;
   position: fixed;
   width: 100%;
   margin-top: 25%;
+}
+
+#typer{
+  font-size: 2rem;
+  color: #E0E0E0;
+}
+
+.scrollDown{
+  position:fixed;
+  height: 100px;
+  display:block;
+  width: 100%;
+  z-index:9;
+  bottom:0px;
+}
+
+#header{
+  position:fixed;
+  height: 50px;
+  display:block;
+  width: 100%;
+  background: #333;
+  z-index:9;
+  text-align:center;
+  color: #f2f2f2;
+  padding: 20px 0 0 0;
+  bottom:0px;
+  top:0px;
 }
