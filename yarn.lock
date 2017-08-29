@@ -2398,12 +2398,6 @@ fstream@^1.0.0, fstream@^1.0.10, fstream@^1.0.2:
     mkdirp ">=0.5 0"
     rimraf "2"
 
-fullpage.js@^2.9.4:
-  version "2.9.4"
-  resolved "https://registry.yarnpkg.com/fullpage.js/-/fullpage.js-2.9.4.tgz#b07de9c146c95c042d28a31e934b8faf334fa0e9"
-  dependencies:
-    jquery ">=1.6.0"
-
 function-bind@^1.0.2, function-bind@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.0.tgz#16176714c801798e4e8f2cf7f7529467bb4a5771"
@@ -3058,7 +3052,7 @@ joi@^6.9.1:
     moment "2.x.x"
     topo "1.x.x"
 
-jquery@>=1.6.0, jquery@^3.2.1:
+jquery@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 
@@ -4532,12 +4526,6 @@ react-dom@^15.6.1:
     fbjs "^0.8.9"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
-    prop-types "^15.5.10"
-
-react-typist@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-typist/-/react-typist-1.1.1.tgz#3b651f8c89ce240f80afbd63038c1bcb113accf4"
-  dependencies:
     prop-types "^15.5.10"
 
 react@^15.6.1:
